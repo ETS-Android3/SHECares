@@ -107,4 +107,6 @@ public class DatesModel {
     public void setCycle(int cycle) {
         this.cycle = cycle;
     }
+
+
 }

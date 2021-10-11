@@ -62,7 +62,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.217"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/home"
+        app:srcCompat="@drawable/calendar"
         tools:ignore="VectorDrawableCompat" />
 
     <ImageView
@@ -75,7 +75,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.224"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/calendar"
+        app:srcCompat="@drawable/logs"
         tools:ignore="VectorDrawableCompat" />
 
     <ImageView
@@ -157,7 +157,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="3 days To Go"
-        android:textSize="40sp"
+        android:textSize="37sp"
         android:textColor="#001337"
         android:layout_marginLeft="40dp"
         app:layout_constraintBottom_toTopOf="@id/date"
@@ -219,7 +219,7 @@
         android:layout_marginBottom="12dp"
         android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
         android:drawablePadding="30dp"
-        android:text="Calendar"
+        android:text="Log"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/Profile"
@@ -228,13 +228,13 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/newdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
         android:drawablePadding="30dp"
-        android:text="Home"
+        android:text="Calendar"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/Calendar"

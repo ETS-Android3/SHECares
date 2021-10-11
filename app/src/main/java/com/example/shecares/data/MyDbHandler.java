@@ -40,27 +40,20 @@ public class MyDbHandler extends SQLiteOpenHelper{
         Cursor cursor = db.rawQuery(query, null);
         int count= cursor.getCount();
         cursor.close();
+        db.close();
         return count;
     }
 
 
     public Boolean addDates(DatesModel datesModel) {
+
+        int cyclelength = calcCycleLength(datesModel.getStart());
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        String select = "SELECT * FROM " + Parameters.TABLE_NAME1;
-        Cursor cursor = db.rawQuery(select, null);
         values.put(Parameters.KEY_STARTDATE, datesModel.getStart());
         values.put(Parameters.KEY_ENDDATE, datesModel.getEnd());
         values.put(Parameters.KEY_DURATION, datesModel.getDuration());
-
-
-        if( cursor!=null) {
-            cursor.moveToLast();
-               String start = cursor.getString(0);
-                values.put(Parameters.KEY_CYCLELENGTH, Integer.valueOf(calcCycleLength(start,datesModel.getEnd())));
-        }
-        else
-            values.put(Parameters.KEY_CYCLELENGTH, Integer.valueOf(0));
+       values.put(Parameters.KEY_CYCLELENGTH,cyclelength);
         long result= db.insert(Parameters.TABLE_NAME1, null, values);
 
         db.close();
@@ -68,8 +61,6 @@ public class MyDbHandler extends SQLiteOpenHelper{
             return false;
         return true;
     }
-
-
 
 
     public int averagePeriodLength(){
@@ -88,65 +79,59 @@ public class MyDbHandler extends SQLiteOpenHelper{
             average = average/ durationlist.size();
         }
         cursor.close();
+        db.close();
         return average;
     }
 
-    public int calcCycleLength(String  start , String end){
+    public int calcCycleLength(String  end ){
         SQLiteDatabase db = this.getReadableDatabase();
         String select = "SELECT * FROM "+Parameters.TABLE_NAME1;
+        Cursor cursor = db.rawQuery(select,null);
         int length = 0;
-        int duration=0;
-        String sub= new String(),sub1= new String();
-        int i=0,j=0;
-        while(start.charAt(i)!='/')
+        if(cursor.moveToLast())
         {
-            sub+=start.charAt(i);
-            i++;
-        }
-        i++;
-        while(end.charAt(j)!='/')
-        {
-            sub1+=end.charAt(j);
-            j++;
-        }
-        j++;
-        int date= Integer.valueOf(sub);
-        sub="";
-        int date1=Integer.valueOf(sub1);
-        sub1="";
-        while(start.charAt(i)!='/')
-        {
-            sub+=start.charAt(i);
-            i++;
-        }
-        while(end.charAt(j)!='/')
-        {
-            sub1+=end.charAt(j);
-            j++;
-        }
-        int month1=Integer.valueOf(sub1);
-        int month = Integer.valueOf(sub);
-
-        int datediff=date1-date;
-        int monthdiff=month1-month;
-        if(monthdiff!=0)
-        {
-            if(month==4||month==6||month==8||month==10)
-            {
-                duration = 30-date+date1+1;
+            String start = cursor.getString(0);
+            int duration = 0;
+            String sub = new String(), sub1 = new String();
+            int i = 0, j = 0;
+            while (start.charAt(i) != '/') {
+                sub += start.charAt(i);
+                i++;
             }
-            else if(month==2)
-            {
-                duration = 28- date +date1 + 1;
+            i++;
+            while (end.charAt(j) != '/') {
+                sub1 += end.charAt(j);
+                j++;
             }
-            else
-                duration = 31- date + date1+1;
-        }
+            j++;
+            int date = Integer.valueOf(sub);
+            sub = "";
+            int date1 = Integer.valueOf(sub1);
+            sub1 = "";
+            while (start.charAt(i) != '/') {
+                sub += start.charAt(i);
+                i++;
+            }
+            while (end.charAt(j) != '/') {
+                sub1 += end.charAt(j);
+                j++;
+            }
+            int month1 = Integer.valueOf(sub1);
+            int month = Integer.valueOf(sub);
 
-        else{
-            duration = date1-date;
-        }
-        length=duration;
+            int datediff = date1 - date;
+            int monthdiff = month1 - month;
+            if (monthdiff != 0) {
+                if (month == 4 || month == 6 || month == 8 || month == 10) {
+                    duration = 30 - date + date1 + 1;
+                } else if (month == 2) {
+                    duration = 28 - date + date1 + 1;
+                } else
+                    duration = 31 - date + date1 + 1;
+            } else {
+                duration = date1 - date;
+            }
+            length = duration;
 //        length = length + Integer.parseInt(cyclelist[0].substring(0,2));
 //        int month = Integer.parseInt(cyclelist[1].substring(2,4));
 //        if(month==4 || month==6 || month==9 || month==11)
@@ -155,7 +140,10 @@ public class MyDbHandler extends SQLiteOpenHelper{
 //            length = length+(28 - Integer.parseInt(cyclelist[1].substring(0,2)));
 //        else
 //            length = length+(31 - Integer.parseInt(cyclelist[1].substring(0,2)));
-
+        }
+        else
+            length =26;
+  cursor.close();
         db.close();
         return length;
     }
@@ -163,22 +151,27 @@ public class MyDbHandler extends SQLiteOpenHelper{
     public String nextDate(){
         SQLiteDatabase db = this.getReadableDatabase();
         int count=0;
+        String nextDate = new String();
         avg=0;
         String select = "SELECT * FROM "+Parameters.TABLE_NAME1;
         Cursor cursor = db.rawQuery(select, null);
-        cursor.moveToLast();
-        for(int i=0; i<3; i++) {
-            if (cursor.moveToPrevious()) {
+
+        if(cursor.moveToLast())
+        {
+
+           do {
                 avg = avg + cursor.getInt(3);
                 count++;
-            }
+            }while(cursor.moveToPrevious()&&count<3);
+
+        if(count==1) avg = 26;
+        else if (count==2)
+        {
+            avg /=2;
         }
-        if(count==0) avg=0;
-        else if(count==1) avg/=2;
         else avg /= 3;
         String d= new String();
-        String nextDate = new String();
-        if(cursor.moveToLast()) {
+   cursor.moveToLast();
             d = cursor.getString(0);
 
             String sub=new String();
@@ -285,15 +278,16 @@ public class MyDbHandler extends SQLiteOpenHelper{
         cursor.close();
         db.close();
         return nextDate;
+
     }
 
-    public List<DatesModel> getAllData(){
-        SQLiteDatabase db = this.getReadableDatabase();
-        List<DatesModel> displaylist= new ArrayList<>();
+    public ArrayList<DatesModel> getAllData(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<DatesModel> displaylist= new ArrayList<>();
         String select = "SELECT * FROM "+Parameters.TABLE_NAME1;
         Cursor cursor = db.rawQuery(select, null);
 
-        if(cursor.moveToFirst()){
+        if(cursor.moveToLast()){
             do{
                 DatesModel datesModel = new DatesModel();
                 datesModel.setStart(cursor.getString(0));
@@ -301,7 +295,7 @@ public class MyDbHandler extends SQLiteOpenHelper{
                 datesModel.setDuration(Integer.parseInt(cursor.getString(2)));
                 datesModel.setCycle(cursor.getInt(3));
                 displaylist.add(datesModel);
-            }while(cursor.moveToNext());
+            }while(cursor.moveToPrevious());
         }
         cursor.close();
         db.close();
@@ -322,21 +316,7 @@ public class MyDbHandler extends SQLiteOpenHelper{
 
     public int average()
     {
-        SQLiteDatabase db = this.getReadableDatabase();
-        int count=0;
-        avg=0;
-        String select = "SELECT * FROM "+Parameters.TABLE_NAME1;
-        Cursor cursor = db.rawQuery(select, null);
-        cursor.moveToLast();
-        for(int i=0; i<3; i++) {
-            if (cursor.moveToPrevious()) {
-                avg = avg + cursor.getInt(3);
-                count++;
-            }
-        }
-        if(count==1) avg/=2;
-        else avg /= 3;
-        cursor.close();
+        String s =nextDate();
         return avg;
     }
 }

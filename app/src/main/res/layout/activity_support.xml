@@ -49,45 +49,54 @@
         >
 
         <TextView
+            android:id="@+id/num1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="hello "
+            android:layout_weight="1"
             android:paddingLeft="20dp"
-            android:textSize="24sp"
+            android:text="Police"
             android:textColor="@color/white"
-            android:layout_weight="1"/>
+            android:textSize="24sp" />
+
         <TextView
+            android:id="@+id/num2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="hello "
+            android:layout_weight="1"
             android:paddingLeft="20dp"
-            android:textSize="24sp"
+            android:text="Cyber Crime Helpline"
             android:textColor="@color/white"
-            android:layout_weight="1"/>
+            android:textSize="24sp" />
+
         <TextView
+            android:id="@+id/num3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="hello "
+            android:layout_weight="1"
             android:paddingLeft="20dp"
-            android:textSize="24sp"
+            android:text="Student / Child Helpline"
             android:textColor="@color/white"
-            android:layout_weight="1"/>
+            android:textSize="24sp" />
+
         <TextView
+            android:id="@+id/num4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:paddingLeft="20dp"
-            android:text="hello "
-            android:textSize="24sp"
+            android:text="Women Helpline - Domestic Abuse "
             android:textColor="@color/white"
-            android:layout_weight="1"/>
+            android:textSize="24sp" />
+
         <TextView
+            android:id="@+id/num5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="hello "
+            android:layout_weight="1"
             android:paddingLeft="20dp"
-            android:textSize="24sp"
+            android:text="Women's Helpline "
             android:textColor="@color/white"
-            android:layout_weight="1"/>
+            android:textSize="24sp" />
     </LinearLayout>
 
 
@@ -132,29 +141,34 @@
         >
 
         <TextView
+            android:id="@+id/num6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="hello "
+            android:layout_weight="1"
             android:paddingLeft="20dp"
-            android:textSize="24sp"
+            android:text="Doctor 1"
             android:textColor="@color/white"
-            android:layout_weight="1"/>
+            android:textSize="24sp" />
+
         <TextView
+            android:id="@+id/num7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="hello "
+            android:layout_weight="1"
             android:paddingLeft="20dp"
-            android:textSize="24sp"
+            android:text="Doctor 2"
             android:textColor="@color/white"
-            android:layout_weight="1"/>
+            android:textSize="24sp" />
+
         <TextView
+            android:id="@+id/num8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="hello "
+            android:layout_weight="1"
             android:paddingLeft="20dp"
-            android:textSize="24sp"
+            android:text="Doctor 3"
             android:textColor="@color/white"
-            android:layout_weight="1"/>
+            android:textSize="24sp" />
 
     </LinearLayout>
 
@@ -177,7 +191,7 @@
     <TextView
         android:layout_width="303dp"
         android:layout_height="wrap_content"
-        android:text="Developer Contacts"
+        android:text="Developer Details"
         android:paddingLeft="20dp"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -201,21 +215,24 @@
         >
 
         <TextView
+            android:id="@+id/num9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="hello "
+            android:layout_weight="1"
             android:paddingLeft="20dp"
-            android:textSize="24sp"
+            android:text="Sanya Gupta"
             android:textColor="@color/white"
-            android:layout_weight="1"/>
+            android:textSize="24sp" />
+
         <TextView
+            android:id="@+id/num10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="hello "
+            android:layout_weight="1"
             android:paddingLeft="20dp"
-            android:textSize="24sp"
+            android:text="Ritika Garg"
             android:textColor="@color/white"
-            android:layout_weight="1"/>
+            android:textSize="24sp" />
     </LinearLayout>
 
 

@@ -38,11 +38,11 @@ public class Profile extends AppCompatActivity {
         periodLength=findViewById(R.id.periodlength);
         delete=findViewById(R.id.delete);
         Feedback=findViewById(R.id.review);
-//     if(db.getCount() > 0) {
-//    nxtdate.setText(String.valueOf(db.nextDate()));
-//    periodLength.setText(String.valueOf(db.averagePeriodLength()));
-//    cycleLength.setText(String.valueOf(db.average()));
-//}
+     if(db.getCount() > 0) {
+    nxtdate.setText(String.valueOf(db.nextDate()));
+    periodLength.setText(String.valueOf(db.averagePeriodLength()));
+    cycleLength.setText(String.valueOf(db.average()));
+}
 
 
         delete.setOnClickListener(new View.OnClickListener() {
